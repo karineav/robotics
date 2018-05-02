@@ -23,18 +23,17 @@ function [ w ] = VoiceRecog( pause_dur )
     % spectrogram(mySpeech, hann(n), 3*n/4, 4*n, 1000, 'yaxis');
 
     a(rows_delete,:) = [];
-    size(a)
     [a1, a2] = max(a);
     
     if(abs(a(round(a2(3)/2),3)) > 0.7*abs(a(a2(3),3)))
         a2(3) = round(a2(3)/2);
     end
     freq = a2(3)*3.1
-    if(a2(3)*3.1 > 210 && a2(3)*3.1 < 240)
-        fino = 1
+    if(a2(3)*3.1 > 200 && a2(3)*3.1 < 220) %was 210 to 240
+        fino = 1;
         w = 1;
-    elseif(a2(3)*3.1 > 90 && a2(3)*3.1 < 120)
-        fino = 0
+    elseif(a2(3)*3.1 > 290 && a2(3)*3.1 < 310)
+        fino = 0;
         w = -1;
     else
         w = 0;

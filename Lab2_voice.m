@@ -8,28 +8,32 @@
 % this function lets us send stuff to the robot
 % sp = serial_port_start('COM4'); %com 4 is the left upper most port
 % pioneer_init(sp);
-v = 50;
+speed_factor = 2;
+v = 00; %was 50
 w = 0;
+w_cap = 3; %was 5
 
+v=v*speed_factor;
+w_cap = w_cap*speed_factor; 
 % sonars_old = sonars;
 while(1);
 %     pause(0.3);
-    
-    sonars = pioneer_read_sonars()
+    0
+%     sonars = pioneer_read_sonars()
 
     
-    if(max(sonars < 250))
-        pioneer_set_controls(sp, 0, 0);
-        break;
-    end
+%     if(max(sonars < 200))
+%         pioneer_set_controls(sp, 0, 0);
+%         break;
+%     end
     
-    w = w + VoiceRecog(0.3);
+    w = w + VoiceRecog(0.3)*speed_factor;
     
-    if(w>5)
-        w = 5;
+    if(w>w_cap)
+        w = w_cap;
     end
-    if (w<-5);
-        w = -5;
+    if (w<-w_cap);
+        w = -w_cap;
     end
     w
     pioneer_set_controls(sp, v, w);
