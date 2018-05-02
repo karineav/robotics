@@ -7,7 +7,7 @@ function [ w ] = VoiceRecog( pause_dur )
     w = 0;
     r = audiorecorder(1000, 16, 1);
     
-    rows_delete = [96:1:161];
+    rows_delete = [113:1:161];
     
     record(r);     % speak into microphone...
     % pause(r);
@@ -29,7 +29,7 @@ function [ w ] = VoiceRecog( pause_dur )
         a2(3) = round(a2(3)/2);
     end
     freq = a2(3)*3.1
-    if(a2(3)*3.1 > 200 && a2(3)*3.1 < 220) %was 210 to 240
+    if(a2(3)*3.1 > 330 && a2(3)*3.1 < 350) %was 210 to 240
         fino = 1;
         w = 1;
     elseif(a2(3)*3.1 > 290 && a2(3)*3.1 < 310)
@@ -38,7 +38,9 @@ function [ w ] = VoiceRecog( pause_dur )
     else
         w = 0;
     end
-
+    if(abs(a1(3))<0.1)
+        w=0;
+    end
     
     
 
